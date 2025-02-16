@@ -1,8 +1,9 @@
 CFLAGS =	-W -Wall -Wextra
 
-SRC =		src/main.c		\
-			src/lib/*.c		\
-			src/loop/*.c
+SRC =		src/main.c			\
+			src/lib/*.c			\
+			src/loop/*.c		\
+			src/commands/*.c
 
 NAME =		mysh
 
