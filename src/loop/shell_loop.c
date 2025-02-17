@@ -48,6 +48,8 @@ void shell_loop(char **env)
     
     while (!shell.exit) {
         get_prompt(&shell);
-        use_command(&shell);
+        if (array_get_len(shell.prompt) > 0) {
+            use_command(&shell);
+        }
     }
 }
