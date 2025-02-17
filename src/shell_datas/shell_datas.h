@@ -9,4 +9,6 @@ struct shell_datas {
     bool exit;
 };
 
+void init_shell_datas(struct shell_datas *shell, char **env);
+
 #endif /* !SHELL_DATAS_H_ */

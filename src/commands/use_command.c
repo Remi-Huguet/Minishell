@@ -1,5 +1,6 @@
 #include "../shell_datas/shell_datas.h"
 #include "../lib/lib.h"
+#include "../signals/signals.h"
 #include "./env/env.h"
 #include "./cd/cd.h"
 #include <stdlib.h>
@@ -24,8 +25,7 @@ void exe_bin(char *bin, char **commands, char **env)
             exit(0);
     } else
         wait(&wstatus);
-    //if (WIFSIGNALED(wstatus))
-        //get_sig(wstatus);
+    check_signal(wstatus);
 }
 
 bool check_bin_command(char **commands, char **env, char *bin_path)
