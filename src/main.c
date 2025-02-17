@@ -1,4 +1,4 @@
-#include "./loop/loop.h"
+#include "main.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -6,6 +6,7 @@ void show_help()
 {
     printf("No parameters needed to lauch the shell.\n");
     printf("This program is like a linux shell in bash.\n");
+    printf("To run the program : mysh\n");
 }
 
 int main(int ac, char **av, char **env)

@@ -1,7 +1,8 @@
-#include "./lib.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+
+int str_get_len(char *str);
 
 char **str_to_array(char *str, char separator)
 {

@@ -1,8 +1,4 @@
-#include "../shell_datas/shell_datas.h"
-#include "../lib/lib.h"
-#include "../signals/signals.h"
-#include "./env/env.h"
-#include "./cd/cd.h"
+#include "commands.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>

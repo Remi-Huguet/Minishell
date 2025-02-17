@@ -1,7 +1,4 @@
-#include "../shell_datas/shell_datas.h"
-#include "../lib/lib.h"
-#include "../signals/signals.h"
-#include "../commands/commands.h"
+#include "loop.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
