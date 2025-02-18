@@ -16,7 +16,7 @@ void delete_env_var_at(struct shell_datas *shell, int index)
 void use_unsetenv(struct shell_datas *shell)
 {
     if (array_get_len(shell->prompt) != 2) {
-        printf("unsetenv: bad usage.\n");
+        printf("bash: unsetenv: bad usage.\n");
         return;
     }
     int index = get_env_var_index(shell->env, shell->prompt[1]);
@@ -24,6 +24,6 @@ void use_unsetenv(struct shell_datas *shell)
     if (index != -1) {
         delete_env_var_at(shell, index);
     } else {
-        printf("unsetenv: %s is not a env variable.\n", shell->prompt[1]);
+        printf("bash: unsetenv: %s is not a env variable.\n", shell->prompt[1]);
     }
 }

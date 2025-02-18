@@ -3,20 +3,20 @@
 #include <string.h>
 #include <stdlib.h>
 
-void set_env_var_at(struct shell_datas *shell, int index)
+void set_env_var_at(struct shell_datas *shell, int index, char *new_value)
 {
     int new_var_len = 0;
 
     for (new_var_len = 0; shell->env[index][new_var_len] != '='; new_var_len++);
     new_var_len++;
-    if (array_get_len(shell->prompt) == 3) {
-        new_var_len += str_get_len(shell->prompt[2]);
+    if (new_value != NULL) {
+        new_var_len += str_get_len(new_value);
     }
     shell->env[index] = malloc(sizeof(char) * new_var_len);
     strcpy(shell->env[index], shell->prompt[1]);
     strcat(shell->env[index], "=");
-    if (array_get_len(shell->prompt) == 3) {
-        strcat(shell->env[index], shell->prompt[2]);
+    if (new_value != NULL) {
+        strcat(shell->env[index], new_value);
     }
 }
 
@@ -41,14 +41,21 @@ void create_env_var(struct shell_datas *shell)
 void use_setenv(struct shell_datas *shell)
 {
     if (array_get_len(shell->prompt) < 2 || array_get_len(shell->prompt) > 3) {
-        printf("setenv: bad usage.\n");
+        printf("bash: setenv: bad usage.\n");
         return;
     }
     int index = get_env_var_index(shell->env, shell->prompt[1]);
 
     if (index != -1) {
-        set_env_var_at(shell, index);
+        set_env_var_at(shell, index, shell->prompt[2]);
     } else {
         create_env_var(shell);
     }
+}
+
+void set_env_var(struct shell_datas *shell, char *var, char *new_value)
+{
+    int index = get_env_var_index(shell->env, var);
+
+    set_env_var_at(shell, index, new_value);
 }
