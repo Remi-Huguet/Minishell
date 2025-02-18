@@ -4,11 +4,16 @@
 
 bool compare_to_env_var(char *env_var, char *var)
 {
-    for (int i = 0; env_var[i] != '='; i++) {
+    int i = 0;
+
+    for (i = 0; env_var[i] != '='; i++) {
         if (i >= str_get_len(var) || env_var[i] != var[i]) {
             return false;
         }
     }
+    if (var[i] != '\0') {
+        return false;
+    } 
     return true;
 }
 
