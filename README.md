@@ -12,7 +12,7 @@ make
 mysh
 ```
 
-## Options handle
+## Options handled
 - Execution of all binary in the differents paths they can be : "/bin/", "/usr/bin/", "/usr/local/bin/", "/sbin/"
 - cd is not handled with ~
 - env, setenv, unsetenv
