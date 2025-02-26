@@ -7,6 +7,7 @@
 
 bool check_dir(char *dir_to_check)
 {
+    if (dir_to_check == POINTER_ERROR) return false;
     if (chdir(dir_to_check) == -1) {
         switch (errno) {
             case EACCES:
@@ -28,6 +29,7 @@ bool check_dir(char *dir_to_check)
 
 void change_dir(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     char *old_pwd = get_env_var(shell->env, "PWD");
     size_t size = sizeof(char) * (str_get_len(old_pwd) + str_get_len(shell->prompt[1]) + 2);
     char *new_pwd = allocate_memory(size);
@@ -40,6 +42,7 @@ void change_dir(struct shell_datas *shell)
 
 void use_cd(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     if (array_get_len(shell->prompt) == 1) {
         return;
     }

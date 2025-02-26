@@ -4,6 +4,7 @@
 
 bool compare_to_env_var(char *env_var, char *var)
 {
+    if (var == POINTER_ERROR || env_var == POINTER_ERROR) return false;
     int i = 0;
 
     for (i = 0; env_var[i] != '='; i++) {
@@ -19,6 +20,7 @@ bool compare_to_env_var(char *env_var, char *var)
 
 int get_env_var_index(char **env, char *var)
 {
+    if (var == POINTER_ERROR || var == POINTER_ERROR) return -1;
     for (int i = 0; env[i] != ARRAY_END; i++) {
         if (compare_to_env_var(env[i], var)) {
             return i;
@@ -29,6 +31,7 @@ int get_env_var_index(char **env, char *var)
 
 char *get_env_var(char **env, char *var)
 {
+    if (var == POINTER_ERROR || var == POINTER_ERROR) return NULL_STR;
     for (int i = 0; env[i] != ARRAY_END; i++) {
         if (compare_to_env_var(env[i], var)) {
             int var_len = 0;
@@ -36,6 +39,7 @@ char *get_env_var(char **env, char *var)
             for (var_len = 0; env[i][var_len] != '='; var_len++);
             var_len++;
             char *value = allocate_memory(sizeof(char) * (str_get_len(env[i]) - var_len));
+            if (value == MALLOC_ERROR) return NULL_STR;
             int value_index = 0;
 
             for (value_index = 0; var_len != str_get_len(env[i]); value_index++) {
@@ -46,5 +50,5 @@ char *get_env_var(char **env, char *var)
             return value;
         }
     }
-    return NULL;
+    return NULL_STR;
 }

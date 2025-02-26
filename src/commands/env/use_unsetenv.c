@@ -5,6 +5,7 @@
 
 void delete_env_var_at(struct shell_datas *shell, int index)
 {
+    if (shell == POINTER_ERROR) return;
     int env_len = array_get_len(shell->env);
 
     free_memory(shell->env[index]);
@@ -16,6 +17,7 @@ void delete_env_var_at(struct shell_datas *shell, int index)
 
 void use_unsetenv(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     if (array_get_len(shell->prompt) != 2) {
         print_formatted("bash: unsetenv: bad usage.\n");
         return;

@@ -25,7 +25,9 @@ void exe_bin(char *bin, char **commands, char **env)
 
 bool check_bin_command(char **commands, char **env, char *bin_path)
 {
+    if (commands == POINTER_ERROR || env == POINTER_ERROR || bin_path == POINTER_ERROR) return false;
     char *bin = allocate_memory(sizeof(char) * (str_get_len(bin_path) + str_get_len(commands[0]) + 1));
+    if (bin == MALLOC_ERROR) return false;
 
     str_copy(&bin, bin_path);
     str_concatenate(&bin, commands[0]);
@@ -43,11 +45,13 @@ bool check_bin_command(char **commands, char **env, char *bin_path)
 
 void exit_shell(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     shell->exit = true;
 }
 
 bool check_others_command(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return false;
     char *no_bin_commands[] = {"cd", "exit", "env", "unsetenv", "setenv", ARRAY_END};
     void (*commands[5]) (struct shell_datas *) = {use_cd, exit_shell, use_env, use_unsetenv, use_setenv};
 
@@ -62,6 +66,7 @@ bool check_others_command(struct shell_datas *shell)
 
 void use_command(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     char *all_bin_paths[] = {"/bin/", "/usr/bin/", "/usr/local/bin/", "/sbin/", ARRAY_END};
 
     if (check_others_command(shell)) {

@@ -6,6 +6,7 @@
 
 void get_prompt(struct shell_datas *shell)
 {
+    if (shell == POINTER_ERROR) return;
     size_t size = 0;
     char *line = NULL_STR;
     
@@ -23,6 +24,7 @@ void get_prompt(struct shell_datas *shell)
 
 void shell_loop(char **env)
 {
+    if (env == POINTER_ERROR) return;
     struct shell_datas shell;
 
     init_shell_datas(&shell, env);

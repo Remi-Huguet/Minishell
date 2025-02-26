@@ -4,12 +4,14 @@
 
 void init_shell_env(struct shell_datas *shell, char **env)
 {
+    if (env == POINTER_ERROR || shell == POINTER_ERROR) return;
     int count = 0;
     
     while (env[count] != ARRAY_END) {
         count++;
     }
     shell->env = allocate_memory(sizeof(char *) * (count + 1));
+    if (shell->env == MALLOC_ERROR) return;
     for (int i = 0; i < count; i++) {
         shell->env[i] = str_duplicate(env[i]);
     }
