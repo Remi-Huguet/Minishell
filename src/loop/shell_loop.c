@@ -33,8 +33,7 @@ void shell_loop(char **env)
         get_prompt(&shell);
         if (array_get_len(shell.prompt) > 0) {
             for (int i = 0; shell.prompt[i] != ARRAY_END; i++) {
-                char **command = str_to_array(shell.prompt[i], ' ');
-                use_command(&shell, command);
+                use_command(&shell, str_to_array(shell.prompt[i], ' '));
             }
         }
     }
