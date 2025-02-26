@@ -1,27 +1,30 @@
-CFLAGS =	-W -Wall -Wextra
+NAME = mysh
 
-SRC =		src/main.c						\
-			src/shell_datas/*.c				\
-			src/lib/*.c						\
-			src/loop/*.c					\
-			src/signals/*.c					\
-			src/commands/*.c				\
-			src/commands/cd/*.c				\
-			src/commands/env/*.c
+CC = gcc
+RM = rm -rf
 
-NAME =		mysh
+CFLAGS = -W -Wall -Wextra
 
-all:		$(NAME)
+SRC = src/main.c						\
+	 	src/shell_datas/*.c				\
+	 	src/lib/*.c						\
+	 	src/loop/*.c					\
+	 	src/signals/*.c					\
+	 	src/commands/*.c				\
+	 	src/commands/cd/*.c				\
+	 	src/commands/env/*.c
+
+all: $(NAME)
 
 $(NAME):
-		gcc -o $(NAME) $(SRC) $(CFLAGS)
+	$(CC) -o $(NAME) $(SRC) $(CFLAGS)
 
 clean:
-		rm -f $(OBJ)
+	$(RM) $(OBJ)
 
-fclean:		clean
-		rm -f $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re:		fclean all
+re: fclean all
 
-.PHONY:		re fclean clean all
+.PHONY: re fclean clean all
