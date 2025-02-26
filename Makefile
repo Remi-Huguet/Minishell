@@ -5,19 +5,19 @@ RM = rm -rf
 
 CFLAGS = -W -Wall -Wextra
 
-SRC = src/main.c						\
-	 	src/shell_datas/*.c				\
-	 	src/lib/*.c						\
-	 	src/loop/*.c					\
-	 	src/signals/*.c					\
-	 	src/commands/*.c				\
-	 	src/commands/cd/*.c				\
-	 	src/commands/env/*.c
+SRCDIR = src src/shell_datas src/loop src/commands src/signals \
+		src/commands/env src/commands/cd src/lib
+
+SRC = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	$(CC) -o $(NAME) $(SRC) $(CFLAGS)
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(CFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)
