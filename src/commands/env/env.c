@@ -1,6 +1,6 @@
 #include "env.h"
-#include <stddef.h>
-#include <stdlib.h>
+#include "libs/string_lib.h"
+#include "libs/memory_lib.h"
 
 bool compare_to_env_var(char *env_var, char *var)
 {
@@ -11,7 +11,7 @@ bool compare_to_env_var(char *env_var, char *var)
             return false;
         }
     }
-    if (var[i] != '\0') {
+    if (var[i] != STR_END) {
         return false;
     } 
     return true;
@@ -19,7 +19,7 @@ bool compare_to_env_var(char *env_var, char *var)
 
 int get_env_var_index(char **env, char *var)
 {
-    for (int i = 0; env[i] != NULL; i++) {
+    for (int i = 0; env[i] != ARRAY_END; i++) {
         if (compare_to_env_var(env[i], var)) {
             return i;
         }
@@ -29,20 +29,20 @@ int get_env_var_index(char **env, char *var)
 
 char *get_env_var(char **env, char *var)
 {
-    for (int i = 0; env[i] != NULL; i++) {
+    for (int i = 0; env[i] != ARRAY_END; i++) {
         if (compare_to_env_var(env[i], var)) {
             int var_len = 0;
 
             for (var_len = 0; env[i][var_len] != '='; var_len++);
             var_len++;
-            char *value = malloc(sizeof(char) * (str_get_len(env[i]) - var_len));
+            char *value = allocate_memory(sizeof(char) * (str_get_len(env[i]) - var_len));
             int value_index = 0;
 
             for (value_index = 0; var_len != str_get_len(env[i]); value_index++) {
                 value[value_index] = env[i][var_len];
                 var_len++;
             }
-            value[value_index] = '\0';
+            value[value_index] = STR_END;
             return value;
         }
     }

@@ -1,6 +1,6 @@
+#include "libs/print_lib.h"
 #include <signal.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 void check_signal(int wstatus)
@@ -8,7 +8,7 @@ void check_signal(int wstatus)
     if (WIFSIGNALED(wstatus)) {
         int signal_code = WTERMSIG(wstatus);
 
-        printf("Procces terminated by signal %d (%s)\n", signal_code, strsignal(signal_code));
+        print_formatted("Procces terminated by signal %d (%s)\n", signal_code, strsignal(signal_code));
     }
 }
 
