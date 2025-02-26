@@ -19,7 +19,7 @@ void get_prompt(struct shell_datas *shell)
     if (len > 0 && line[len - 1] == '\n') {
         line[len - 1] = STR_END;
     }
-    shell->prompt = str_to_array(line, ' ');
+    shell->prompt = str_to_array(line, ';');
 }
 
 void shell_loop(char **env)
@@ -32,8 +32,10 @@ void shell_loop(char **env)
         handle_control_c();
         get_prompt(&shell);
         if (array_get_len(shell.prompt) > 0) {
-            //ICI LE SHELL.PROMPT CA BOUCLERA SUR cHAQUE COMMANDE
-            use_command(&shell, shell.prompt);
+            for (int i = 0; shell.prompt[i] != ARRAY_END; i++) {
+                char **command = str_to_array(shell.prompt[i], ' ');
+                use_command(&shell, command);
+            }
         }
     }
 }

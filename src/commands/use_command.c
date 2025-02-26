@@ -79,5 +79,5 @@ void use_command(struct shell_datas *shell, char **command)
             return;
         }
     }
-    print_formatted("Unkwon command.\n");
+    print_formatted("%s: command not found.\n", command[0]);
 }

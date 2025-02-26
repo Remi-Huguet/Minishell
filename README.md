@@ -27,10 +27,10 @@ make tests_run
 - cd (not handled with ~)
 - env, setenv, unsetenv
 - exit to leave
-- ctrl C / Z 
+- ctrl C / Z
+- multi commands handled with ";"
 
 ## Options that are planed to be handled
-- ";" handler, to use multiple commands
 - Redirections (">", ">>", "<", "<<") handlers
 - Pipes ("|", "||") handlers
 
