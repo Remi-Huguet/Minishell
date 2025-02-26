@@ -27,11 +27,11 @@ bool check_dir(char *dir_to_check)
     return true;
 }
 
-void change_dir(struct shell_datas *shell)
+void change_dir(struct shell_datas *shell, char **command)
 {
-    if (shell == POINTER_ERROR) return;
+    if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
     char *old_pwd = get_env_var(shell->env, "PWD");
-    size_t size = sizeof(char) * (str_get_len(old_pwd) + str_get_len(shell->prompt[1]) + 2);
+    size_t size = sizeof(char) * (str_get_len(old_pwd) + str_get_len(command[1]) + 2);
     char *new_pwd = allocate_memory(size);
 
     set_env_var(shell, "OLDPWD", old_pwd);
@@ -40,18 +40,18 @@ void change_dir(struct shell_datas *shell)
     free_memory(new_pwd);
 }
 
-void use_cd(struct shell_datas *shell)
+void use_cd(struct shell_datas *shell, char **command)
 {
-    if (shell == POINTER_ERROR) return;
-    if (array_get_len(shell->prompt) == 1) {
+    if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
+    if (array_get_len(command) == 1) {
         return;
     }
-    if (array_get_len(shell->prompt) > 2) {
+    if (array_get_len(command) > 2) {
         print_formatted("bash: cd: too many arguments\n");
         return;
     }
-    if (!check_dir(shell->prompt[1])) {
+    if (!check_dir(command[1])) {
         return;
     }
-    change_dir(shell);
+    change_dir(shell, command);
 }

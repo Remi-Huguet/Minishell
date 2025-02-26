@@ -15,18 +15,18 @@ void delete_env_var_at(struct shell_datas *shell, int index)
     shell->env[env_len - 1] = ARRAY_END;
 }
 
-void use_unsetenv(struct shell_datas *shell)
+void use_unsetenv(struct shell_datas *shell, char **command)
 {
-    if (shell == POINTER_ERROR) return;
-    if (array_get_len(shell->prompt) != 2) {
+    if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
+    if (array_get_len(command) != 2) {
         print_formatted("bash: unsetenv: bad usage.\n");
         return;
     }
-    int index = get_env_var_index(shell->env, shell->prompt[1]);
+    int index = get_env_var_index(shell->env, command[1]);
 
     if (index != -1) {
         delete_env_var_at(shell, index);
     } else {
-        print_formatted("bash: unsetenv: %s is not a env variable.\n", shell->prompt[1]);
+        print_formatted("bash: unsetenv: %s is not a env variable.\n", command[1]);
     }
 }

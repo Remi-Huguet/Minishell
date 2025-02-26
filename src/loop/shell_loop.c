@@ -32,7 +32,8 @@ void shell_loop(char **env)
         handle_control_c();
         get_prompt(&shell);
         if (array_get_len(shell.prompt) > 0) {
-            use_command(&shell);
+            //ICI LE SHELL.PROMPT CA BOUCLERA SUR cHAQUE COMMANDE
+            use_command(&shell, shell.prompt);
         }
     }
 }

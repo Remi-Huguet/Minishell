@@ -5,6 +5,6 @@
 
 void handle_control_c();
 void init_shell_datas(struct shell_datas *shell, char **env);
-void use_command(struct shell_datas *shell);
+void use_command(struct shell_datas *shell, char **command);
 
 #endif /* !LOOP_H_ */
