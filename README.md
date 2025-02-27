@@ -31,7 +31,8 @@ make tests_run
 - multi commands handled with ";"
 
 ## Options that are planed to be handled
-- Redirections (">", ">>", "<") and pipes ("|", "||") handlers (start or end a command with redirections or pipes not handled (ex : "> ls"))
+- Redirections (">", ">>", "<", "<<") handlers
+- Pipes ("|", "||") handlers
 
 ## C-Libs
 For this project i use the some functions I've done myself that are usually used from the string.h / stdio.h / stdlib.h library (here in the c_libs folder). You can find the repo of the libs I've done are here : https://github.com/Remi-Huguet/C-Libs/
