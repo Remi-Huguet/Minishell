@@ -2,6 +2,7 @@
 #define STRING_LIB_H_
 
 #include "macros.h"
+#include <stdbool.h>
 
 bool array_contain(char **array, char *str);
 int array_get_len(char **array);

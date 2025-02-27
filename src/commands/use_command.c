@@ -44,13 +44,26 @@ bool check_bin_command(char **command, char **env, char *bin_path)
     return false;
 }
 
+bool all_bin_commands(char **command, char **env)
+{
+    if (env == POINTER_ERROR || command == POINTER_ERROR) return false;
+    char *all_bin_paths[] = {"/bin/", "/usr/bin/", "/usr/local/bin/", "/sbin/", ARRAY_END};
+
+    for (int i = 0; all_bin_paths[i] != ARRAY_END; i++) {
+        if (check_bin_command(command, env, all_bin_paths[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void exit_shell(struct shell_datas *shell, char **command)
 {
     if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
     shell->exit = true;
 }
 
-bool check_others_command(struct shell_datas *shell, char **command)
+bool others_command(struct shell_datas *shell, char **command)
 {
     if (shell == POINTER_ERROR || command == POINTER_ERROR) return false;
     char *no_bin_commands[] = {"cd", "exit", "env", "unsetenv", "setenv", ARRAY_END};
@@ -67,17 +80,15 @@ bool check_others_command(struct shell_datas *shell, char **command)
 
 void use_command(struct shell_datas *shell, char **command)
 {
-    if (shell == POINTER_ERROR) return;
-    char *all_bin_paths[] = {"/bin/", "/usr/bin/", "/usr/local/bin/", "/sbin/", ARRAY_END};
-
-    if (check_others_command(shell, command)) {
+    if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
+    if (command_with_pipe(command)) {
         return;
     }
-
-    for (int i = 0; all_bin_paths[i] != ARRAY_END; i++) {
-        if (check_bin_command(command, shell->env, all_bin_paths[i])) {
-            return;
-        }
+    if (others_command(shell, command)) {
+        return;
+    }
+    if (all_bin_commands(command, shell->env)) {
+        return;
     }
     print_formatted("%s: command not found.\n", command[0]);
 }

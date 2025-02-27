@@ -28,11 +28,12 @@ make tests_run
 - env, setenv, unsetenv
 - exit to leave
 - ctrl C / Z
-- multi commands handled with ";"
+- multiple commands handled with ";"
+- redirections (">", ">>", "<", "<<") handled (only in format : "'command' 'redirection_sign' 'command'")
+- pipes (">", ">>", "<", "<<") handled (only in format : "'command' 'pipe' 'command'")
 
-## Options that are planed to be handled
-- Redirections (">", ">>", "<", "<<") handlers
-- Pipes ("|", "||") handlers
+# Options that can be handled in the future
+- multiple pipes or redirections, or pipes and redirections combinaisons
 
 ## C-Libs
 For this project i use the some functions I've done myself that are usually used from the string.h / stdio.h / stdlib.h library (here in the c_libs folder). You can find the repo of the libs I've done are here : https://github.com/Remi-Huguet/C-Libs/
