@@ -3,6 +3,7 @@
 
 #include "macros.h"
 
+bool array_contain(char **array, char *str);
 int array_get_len(char **array);
 bool array_is_same(char **array, char **array_to_compare);
 int int_to_str(int number);
