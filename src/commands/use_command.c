@@ -84,6 +84,9 @@ void use_command(struct shell_datas *shell, char **command)
     if (commands_with_pipe(shell, command)) {
         return;
     }
+    if (commands_with_redirection(shell, command)) {
+        return;
+    }
     if (others_command(shell, command)) {
         return;
     }

@@ -11,5 +11,6 @@ void use_env(struct shell_datas *shell, char **command);
 void use_setenv(struct shell_datas *shell, char **command);
 void use_unsetenv(struct shell_datas *shell, char **command);
 bool commands_with_pipe(struct shell_datas *shell, char **commands);
+bool commands_with_redirection(struct shell_datas *shell, char **commands);
 
 #endif /* !COMMANDS_H_ */

@@ -9,26 +9,22 @@ bool check_valid_pipe_format(char **commands)
 {
     if (commands == POINTER_ERROR) return false;
     if (array_get_len(commands) < 3) {
-        print_formatted("Bad redirections usage : only accept format \"'command' '| or ||' 'command\"\n");
+        print_formatted("Bad pipe usage : only accept format \"'command' '| or ||' 'command\"\n");
         return false;
     }
     if (str_is_same(commands[0], "|") || str_is_same(commands[0], "||") || str_is_same(commands[array_get_len(commands) - 1], "|") || str_is_same(commands[array_get_len(commands) - 1], "||")) {
-        print_formatted("Bad redirections usage : only accept format \"'command' '| or ||' 'command\"\n");
+        print_formatted("Bad pipe usage : only accept format \"'command' '| or ||' 'command\"\n");
         return false;
     }
-    int count_single = 0;
-    int count_double = 0;
+    int count = 0;
 
     for (int i = 0; commands[i] != ARRAY_END; i++) {
-        if (str_is_same(commands[i], "|")) {
-            count_single++;
-        }
-        if (str_is_same(commands[i], "||")) {
-            count_double++;
+        if (str_is_same(commands[i], "|") || str_is_same(commands[i], "||")) {
+            count++;
         }
     }
-    if (count_double + count_single != 1) {
-        print_formatted("Bad redirections usage : only accept format \"'command' '| or ||' 'command\"\n");
+    if (count != 1) {
+        print_formatted("Bad pipe usage : only accept format \"'command' '| or ||' 'command\"\n");
         return false;
     }
     return true;
@@ -43,7 +39,7 @@ bool check_is_pipe(char **commands)
     return true;
 }
 
-char **separate_commands(char **commands, bool first_command)
+char **separate_commands_by_pipe(char **commands, bool first_command)
 {
     if (commands == POINTER_ERROR) return NULL_ARRAY;
     int len = 0;
@@ -83,9 +79,9 @@ bool commands_with_pipe(struct shell_datas *shell, char **commands)
         return true;
     }
     if (array_contain(commands, "|")) {
-        single_pipe(shell, separate_commands(commands, true), separate_commands(commands, false));
+        single_pipe(shell, separate_commands_by_pipe(commands, true), separate_commands_by_pipe(commands, false));
     } else {
-        double_pipe(shell, separate_commands(commands, true), separate_commands(commands, false));
+        double_pipe(shell, separate_commands_by_pipe(commands, true), separate_commands_by_pipe(commands, false));
     }
     return true;
 }

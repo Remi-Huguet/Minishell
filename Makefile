@@ -7,7 +7,8 @@ CFLAGS = -W -Wall -Wextra -I./c_libs/include
 LFLAGS = -L./c_libs -lsc
 
 SRCDIR = src src/shell_datas src/loop src/commands src/signals \
-		src/commands/env src/commands/cd src/commands/pipe
+		src/commands/env src/commands/cd src/commands/pipes 	\
+		src/commands/redirections
 
 SRC = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 OBJ = $(SRC:.c=.o)
