@@ -81,7 +81,7 @@ bool others_command(struct shell_datas *shell, char **command)
 void use_command(struct shell_datas *shell, char **command)
 {
     if (shell == POINTER_ERROR || command == POINTER_ERROR) return;
-    if (command_with_pipe(command)) {
+    if (commands_with_pipe(shell, command)) {
         return;
     }
     if (others_command(shell, command)) {
