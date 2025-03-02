@@ -78,10 +78,12 @@ bool commands_with_pipe(struct shell_datas *shell, char **commands)
     if (!check_valid_pipe_format(commands)) {
         return true;
     }
+    char **first_command = separate_commands_by_pipe(commands, true);
+    char **second_command = separate_commands_by_pipe(commands, false);
     if (array_contain(commands, "|")) {
-        single_pipe(shell, separate_commands_by_pipe(commands, true), separate_commands_by_pipe(commands, false));
+        single_pipe(shell, first_command, second_command);
     } else {
-        double_pipe(shell, separate_commands_by_pipe(commands, true), separate_commands_by_pipe(commands, false));
+        double_pipe(shell, first_command, second_command);
     }
     return true;
 }

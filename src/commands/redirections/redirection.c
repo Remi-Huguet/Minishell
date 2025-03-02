@@ -2,6 +2,7 @@
 #include "redirection.h"
 #include "libs/print_lib.h"
 #include "libs/string_lib.h"
+#include "libs/memory_lib.h"
 #include <stdbool.h>
 
 bool check_valid_redirection_format(char **commands)
@@ -39,6 +40,39 @@ bool check_is_redirection(char **commands)
     return true;
 }
 
+char **separate_commands_by_redirection(char **commands, bool first_command)
+{
+    if (commands == POINTER_ERROR) return NULL_ARRAY;
+    int len = 0;
+    int i = 0;
+
+    if (!first_command) {
+        for (i = 0; !str_is_same(commands[i], "<") && !str_is_same(commands[i], "<<") \
+        && !str_is_same(commands[i], ">>") && !str_is_same(commands[i], ">"); i++);
+        i++;
+        for (int y = i; commands[y] != ARRAY_END; y++) {
+            len++;
+        }
+    } else {
+        for (int y = 0; !str_is_same(commands[y], "<") && !str_is_same(commands[y], "<<") \
+        && !str_is_same(commands[y], ">") && !str_is_same(commands[y], ">>"); y++) {
+            len++;
+        }
+    }
+    char **command = allocate_memory(sizeof(char *) * (len + 1));
+    int y = 0;
+    if (command == MALLOC_ERROR) return NULL_ARRAY;
+
+    for (y = 0; !str_is_same(commands[i], "<") && !str_is_same(commands[i], "<<") \
+    && !str_is_same(commands[i], ">") && !str_is_same(commands[i], ">>") && commands[i] != ARRAY_END; y++) {
+        command[y] = allocate_memory(sizeof(char) * (str_get_len(commands[i]) + 1));
+        command[y] = commands[i];
+        i++;
+    }
+    command[y] = ARRAY_END;
+    return command;
+}
+
 bool commands_with_redirection(struct shell_datas *shell, char **commands)
 {
     if (shell == POINTER_ERROR || commands == POINTER_ERROR) return true;
@@ -48,6 +82,15 @@ bool commands_with_redirection(struct shell_datas *shell, char **commands)
     if (!check_valid_redirection_format(commands)) {
         return true;
     }
-    print_formatted("REDIC\n");
+    char **first_command = separate_commands_by_redirection(commands, true);
+    char **second_command = separate_commands_by_redirection(commands, false);
+
+    if (array_contain(commands, ">")) {
+        right_redirection(shell, first_command, second_command, false);
+    } else if (array_contain(commands, ">>")) {
+        right_redirection(shell, first_command, second_command, true);
+    } else if (array_contain(commands, "<")) {
+        left_simple_redirection(shell, first_command, second_command);
+    }
     return true;
 }
