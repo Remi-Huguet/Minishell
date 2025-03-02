@@ -1,7 +1,6 @@
 #include "macros.h"
 #include "redirection.h"
 #include "libs/print_lib.h"
-#include "libs/string_lib.h"
 #include <stdbool.h>
 #include <fcntl.h>
 #include <unistd.h>

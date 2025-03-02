@@ -90,7 +90,9 @@ bool commands_with_redirection(struct shell_datas *shell, char **commands)
     } else if (array_contain(commands, ">>")) {
         right_redirection(shell, first_command, second_command, true);
     } else if (array_contain(commands, "<")) {
-        left_simple_redirection(shell, first_command, second_command);
+        left_single_redirection(shell, first_command, second_command);
+    } else if (array_contain(commands, "<<")) {
+        left_double_redirection(shell, first_command, second_command);
     }
     return true;
 }

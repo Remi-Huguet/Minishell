@@ -1,13 +1,12 @@
 #include "macros.h"
 #include "redirection.h"
 #include "libs/print_lib.h"
-#include "libs/string_lib.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 
-void left_simple_redirection(struct shell_datas *shell, char **first_command, char **second_command)
+void left_single_redirection(struct shell_datas *shell, char **first_command, char **second_command)
 {
     if (shell == POINTER_ERROR || first_command == POINTER_ERROR || second_command == POINTER_ERROR) return;
     int fd;
