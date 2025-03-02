@@ -12,16 +12,6 @@ make
 mysh
 ```
 
-## Run Unit Tests Dependencies
-```bash
-sudo apt install libcriterion-dev
-```
-
-## Run Unit Tests
-```bash
-make tests_run
-```
-
 ## Options handled
 - Execution of all binary in the differents paths they can be : "/bin/", "/usr/bin/", "/usr/local/bin/", "/sbin/"
 - cd (not handled with ~)
@@ -30,7 +20,7 @@ make tests_run
 - ctrl C / Z
 - multiple commands handled with ";"
 - redirections (">", ">>", "<", "<<") handled (only in format : "'command' 'redirection_sign' 'command'")
-- pipes (">", ">>", "<", "<<") handled (only in format : "'command' 'pipe' 'command'")
+- pipes (">", ">>", "<", "<<") handled (only in format : "'command' 'pipe_sign' 'command'")
 
 # Options that can be handled in the future
 - multiple pipes or redirections, or pipes and redirections combinaisons
