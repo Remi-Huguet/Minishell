@@ -6,6 +6,11 @@ No parameters are needed to launch the shell.
 This program works like a Linux Bash shell.
 The idea of this project was to refactor a project I did in my first year, but with improvements based on what I have learned since then, along with some unit tests.
 
+## Install Dependencies
+```bash
+sudo apt install gcc
+```
+
 ## Run
 ```bash
 make
