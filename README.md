@@ -1,5 +1,5 @@
 # Minishell
-A shell in Bash recreated.
+A shell in Bash recreated in C.
 
 ## Description
 No parameters are needed to launch the shell.
